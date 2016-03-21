@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World!</title>
+</head>
+<body>
+  <h1>Hello World!</h1>
+  We are using node <script>document.write(process.versions.node)</script>,
+  Chromium <script>document.write(process.versions.chrome)</script>,
+  and Electron <script>document.write(process.versions.electron)</script>.
+  <ul id="test"></ul>
+  <script>window.$ = window.jQuery = require('./jquery.js');</script>
+  <script>
+  var sqlite = require('sqlite-cipher');
+
+  sqlite.connect('myEncrypedFile.myextension','MyPassword');
+  
+  sqlite.insert("COMPANYS",{NAME:"My COMPANY"}, function(inserid){
+    console.log(inserid);
+  });
+  var companys = sqlite.run("SELECT * FROM COMPANYS;");
+  console.log(companys);
+  for(var i = 0; i < companys.length; i++){
+    $('#test').append('<li>'+companys[i].NAME+'</li>');
+  }
+  </script>
+</body>
 </html>
